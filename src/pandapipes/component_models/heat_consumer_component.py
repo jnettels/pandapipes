@@ -285,8 +285,8 @@ class HeatConsumer(BranchWOInternalsComponent):
 
         res_table = net["res_" + cls.table_name()]
 
-        res_table['qext_w'].values[:] = branch_pit[f:t, QEXT]
+        res_table.loc[:, 'qext_w'] = branch_pit[f:t, QEXT]
         from_nodes = get_from_nodes_corrected(branch_pit[f:t])
         t_from = node_pit[from_nodes, TINIT]
         tout = branch_pit[f:t, TOUTINIT]
-        res_table['deltat_k'].values[:] = t_from - tout
+        res_table.loc[:, 'deltat_k'] = t_from - tout

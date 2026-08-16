@@ -196,8 +196,8 @@ class BranchWInternalsComponent(BranchComponent):
             set_entry_check_repeat(branch_w_internals_pit, D, net[tbl].inner_diameter_mm.values / 1000., internal_branch_number,
                 has_internals)
             if "outer_diameter_mm" in net[tbl]:
-                outer = net[tbl].outer_diameter_mm.values
-                inner = net[tbl].inner_diameter_mm.values
+                outer = net[tbl].outer_diameter_mm
+                inner = net[tbl].inner_diameter_mm
                 outer[pd.isnull(outer)] = inner[pd.isnull(outer)]
                 set_entry_check_repeat(branch_w_internals_pit, DO, outer / 1000., internal_branch_number,
                     has_internals)

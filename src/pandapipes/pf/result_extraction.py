@@ -227,7 +227,7 @@ def extract_branch_results_with_internals(net, branch_results, table_name,
             considered = end_nodes_external & comp_connected
             external_active = comp_connected[end_nodes_external]
             for res_name, entry in res_ext:
-                res_table[res_name].values[external_active] = branch_results[entry][f:t][considered]
+                res_table.loc[external_active, res_name] = branch_results[entry][f:t][considered]
         if len(res_mean) > 0:
             # results that relate to the whole branch and shall be averaged (by summing up all
             # values and dividing by number of internal sections)
@@ -242,7 +242,7 @@ def extract_branch_results_with_internals(net, branch_results, table_name,
             pt = placement_table[connected_ind]
 
             for i, (res_name, entry) in enumerate(res_mean_hydraulics):
-                res_table[res_name].values[pt] = res[i + 3][connected_ind] / num_internals
+                res_table.iloc[pt, res_table.columns.get_loc(res_name)] = res[i + 3][connected_ind] / num_internals
         if len(res_branch) > 0:
             use_numba = get_net_option(net, "use_numba")
             _, sections, connected_sum = _sum_by_group(use_numba, idx_pit, np.ones_like(idx_pit),
@@ -253,7 +253,7 @@ def extract_branch_results_with_internals(net, branch_results, table_name,
             pt = placement_table[connected_ind]
 
             for i, (res_name, entry) in enumerate(res_branch):
-                res_table[res_name].values[pt] = branch_results[entry][indices_last_section]
+                res_table.iloc[pt, res_table.columns.get_loc(res_name)] = branch_results[entry][indices_last_section]
 
 
 def extract_branch_results_without_internals(net, branch_results, required_results_hydraulic,
@@ -289,11 +289,11 @@ def extract_branch_results_without_internals(net, branch_results, required_resul
         # lookup for connected branch elements (hydraulic results)
         comp_connected_hyd = get_lookup(net, "branch", "active_hydraulics")[f:t]
         for res_name, entry in required_results_hydraulic:
-            res_table[res_name].values[:][comp_connected_hyd] = \
+            res_table.loc[comp_connected_hyd, res_name] = \
                 branch_results[entry][f:t][comp_connected_hyd]
         if simulation_mode == "hydraulics":
             for res_name, entry in required_results_heat:
-                res_table[res_name].values[:][comp_connected_hyd] = \
+                res_table.loc[comp_connected_hyd, res_name] = \
                     branch_results[entry][f:t][comp_connected_hyd]
 
     # extract heat transfer results
@@ -301,7 +301,7 @@ def extract_branch_results_without_internals(net, branch_results, required_resul
         # lookup for connected branch elements (heat transfer results)
         comp_connected_ht = get_lookup(net, "branch", "active_heat_transfer")[f:t]
         for res_name, entry in required_results_heat:
-            res_table[res_name].values[:][comp_connected_ht] = \
+            res_table.loc[comp_connected_ht, res_name] = \
                 branch_results[entry][f:t][comp_connected_ht]
 
 

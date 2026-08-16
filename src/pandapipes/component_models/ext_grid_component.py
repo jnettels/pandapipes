@@ -100,7 +100,7 @@ class ExtGrid(NodeElementComponent):
 
         # positive results mean that the ext_grid feeds in, negative means that the ext grid
         # extracts (like a load)
-        res_table["mdot_kg_per_s"].values[p_grids] = \
+        res_table.loc[p_grids, "mdot_kg_per_s"] = \
             cls.sign() * (sum_mass_flows / counts)[inverse_nodes]
         return res_table, ext_grids, node_pit, branch_pit
 

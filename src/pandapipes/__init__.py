@@ -22,7 +22,6 @@ __format_version__ = '0.14.0'
 import pandas as pd
 import os
 
-pd.options.mode.chained_assignment = None  # default='warn'
 pp_dir = os.path.dirname(os.path.realpath(__file__))
 
 from pandapipes.properties.fluids import *

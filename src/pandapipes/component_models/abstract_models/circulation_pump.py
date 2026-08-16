@@ -193,7 +193,7 @@ class CirculationPump(BranchWOInternalsComponent):
         from_nodes = get_from_nodes_corrected(branch_pit[f:t])
         t_from = node_pit[from_nodes, TINIT]
         tout = branch_pit[f:t, TOUTINIT]
-        res_table['deltat_k'].values[:] = t_from - tout
+        res_table.loc[:, 'deltat_k'] = t_from - tout
 
         fluid = get_fluid(net)
 
@@ -201,4 +201,4 @@ class CirculationPump(BranchWOInternalsComponent):
         cp_i1 = fluid.get_heat_capacity(tout)
 
         mass = branch_pit[f:t, MDOTINIT]
-        res_table['qext_w'].values[:] = mass * (cp_i1 * tout - cp_i * t_from)
+        res_table.loc[:, 'qext_w'] = mass * (cp_i1 * tout - cp_i * t_from)

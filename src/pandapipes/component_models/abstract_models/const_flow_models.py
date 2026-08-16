@@ -74,9 +74,8 @@ class ConstFlow(NodeElementComponent):
         junct_pit = net["_pit"]["node"][fj:tj, :]
         nodes_connected_hyd = get_lookup(net, "node", "active_hydraulics")[fj:tj]
         is_juncts = np.isin(loads.junction.values, junct_pit[nodes_connected_hyd, ELEMENT_IDX])
-
         is_calc = is_loads & is_juncts
-        res_table["mdot_kg_per_s"].values[is_calc] = loads.mdot_kg_per_s.values[is_calc] \
+        res_table.loc[is_calc, "mdot_kg_per_s"] = loads.mdot_kg_per_s.values[is_calc] \
             * loads.scaling.values[is_calc]
 
     @classmethod

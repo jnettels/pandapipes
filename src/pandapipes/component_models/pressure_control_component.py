@@ -149,7 +149,7 @@ class PressureControlComponent(BranchWOInternalsComponent):
         f, t = get_lookup(net, "branch", "from_to")[cls.table_name()]
         p_to = branch_results["p_to"][f:t]
         p_from = branch_results["p_from"][f:t]
-        res_table["deltap_bar"].values[:] = p_to - p_from
+        res_table.loc[:, "deltap_bar"] = p_to - p_from
 
     @classmethod
     def get_component_input(cls):

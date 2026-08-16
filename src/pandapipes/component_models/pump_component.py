@@ -175,12 +175,12 @@ class Pump(BranchWOInternalsComponent):
                     k = cp/cv  # 'kappa' heat capacity ratio
                     w_real_isentr = (k / (k - 1)) * r_spec * compr * t0 * \
                                     (np.divide(p_to, p_from) ** ((k - 1) / k) - 1)
-                    res_table['compr_power_mw'].values[:] = \
+                    res_table.loc[:, 'compr_power_mw'] = \
                         w_real_isentr * np.abs(mf_sum_int) / 1e6
             else:
                 vf_sum_int = branch_results["vf"][f:t]
                 pl = branch_results["pl"][f:t]
-                res_table['compr_power_mw'].values[:] = pl * P_CONVERSION * vf_sum_int / 1e6
+                res_table.loc[:, 'compr_power_mw'] = pl * P_CONVERSION * vf_sum_int / 1e6
 
     @classmethod
     def get_component_input(cls):

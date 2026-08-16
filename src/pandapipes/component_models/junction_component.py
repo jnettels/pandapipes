@@ -141,8 +141,8 @@ class Junction(NodeComponent):
         # if mode in ["heat", "sequential", "bidirectional]:
         #     junctions_connected_ht = get_lookup(net, "node", "active_heat_transfer")[f:t]
         #     res_table["t_k"].values[junctions_connected_ht] = junction_pit[:, TINIT]
-        res_table["p_bar"].values[:] = junction_pit[:, PINIT]
-        res_table["t_k"].values[:] = junction_pit[:, TINIT]
+        res_table.loc[:, "p_bar"] = junction_pit[:, PINIT]
+        res_table.loc[:, "t_k"] = junction_pit[:, TINIT]
 
     @classmethod
     def get_component_input(cls):
