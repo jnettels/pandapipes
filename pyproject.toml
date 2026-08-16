@@ -33,7 +33,7 @@ classifiers = [
     "Programming Language :: Python :: 3.12"
 ]
 dependencies = [
-    "pandapower == 3.3.3",
+    "pandapower @ https://github.com/jnettels/pandapower/archive/fix/pandas3.tar.gz", # v3.3.3 with pandas 3.* support
     "matplotlib",
     "shapely",
 ]
