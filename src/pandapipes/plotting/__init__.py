@@ -5,7 +5,6 @@
 import types
 
 from matplotlib.backend_bases import GraphicsContextBase, RendererBase
-from matplotlib._enums import CapStyle
 
 from pandapipes.plotting.collections import *
 from pandapipes.plotting.generic_geodata import *
@@ -23,7 +22,7 @@ class GC(GraphicsContextBase):
 
     def __init__(self):
         super().__init__()
-        self._capstyle = CapStyle('round')
+        self.set_capstyle('round')
 
 
 def custom_new_gc(self):
