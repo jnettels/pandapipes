@@ -62,8 +62,7 @@ def _set_entries(net, table, index, preserve_dtypes=True, **entries):
         # only get dtypes of columns that are set and that are already present in the table
         dtypes = net[table][np.intersect1d(net[table].columns, list(entries.keys()))].dtypes
 
-    for col, val in entries.items():
-        net[table].at[index, col] = val
+    net[table].loc[index, list(entries)] = list(entries.values())
 
     # and preserve dtypes
     if preserve_dtypes:
